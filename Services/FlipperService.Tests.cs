@@ -51,6 +51,8 @@ namespace Coflnet.Sky.Commands.Tests
 
             public string UserId => "1";
 
+            public string GameServer => "skyblock";
+
             public SettingsChange LatestSettings => new SettingsChange()
             {
                 Tier = AccountTier.PREMIUM,

@@ -22,6 +22,7 @@ namespace Coflnet.Sky.Commands
         AccountInfo AccountInfo { get; }
         long Id { get; }
         string UserId { get; }
+        string GameServer { get; }
         /// <summary>
         /// Logs information to the connection
         /// </summary>
