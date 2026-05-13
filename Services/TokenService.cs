@@ -58,6 +58,7 @@ public class TokenService
     /// <exception cref="SecurityTokenException">Thrown if the token is invalid</exception>
     public ClaimsPrincipal ValidateToken(string token)
     {
+        token = NormalizeToken(token);
         var creds = GetCreds();
 
         var validationParameters = new TokenValidationParameters
@@ -87,7 +88,10 @@ public class TokenService
     public string GetEmailFromToken(string token)
     {
         var principal = ValidateToken(token);
-        return principal.FindFirst(c=>c.Type == "email" || c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress").Value;
+        var emailClaim = principal.FindFirst(c => c.Type == "email" || c.Type == ClaimTypes.Email);
+        if (string.IsNullOrWhiteSpace(emailClaim?.Value))
+            throw new SecurityTokenException("Token does not contain an email claim");
+        return emailClaim.Value;
     }
 
     /// <summary>
@@ -115,5 +119,19 @@ public class TokenService
             email = null;
             return false;
         }
+        catch (ArgumentException)
+        {
+            email = null;
+            return false;
+        }
+    }
+
+    private static string NormalizeToken(string token)
+    {
+        if (string.IsNullOrWhiteSpace(token))
+            return token;
+        if (token.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            return token["Bearer ".Length..].Trim();
+        return token.Trim();
     }
 }
