@@ -26,6 +26,8 @@ public class UpdateMessage
     public StateSettings? Settings { get; set; }
     [Key(7)]
     public string[]? Scoreboard { get; set; }
+    [Key(8)]
+    public string[]? Tab { get; set; }
 
     public override bool Equals(object? obj)
     {
@@ -51,7 +53,8 @@ public class UpdateMessage
         INVENTORY,
         API = 4,
         Setting = 8,
-        Scoreboard = 16
+        Scoreboard = 16,
+        Tab = 32
     }
 }
 
