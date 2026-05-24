@@ -62,6 +62,15 @@ public class DescriptionSetting
     [SettingsDoc("Price paid in lore also enables auction start time if looking at an auction, this disables that. If other mods modify the item lore it can overwrite the seller name or price because the wrong line is replaced.", "noStartTime")]
     public bool DisableAuctionStartedTime;
 
+    [SettingsDoc("Extra undercut % added when the price key doesn't exactly match the item (price estimated from similar items). Set to 0 to disable the penalty.", "lbNonExactPct")]
+    public byte LowballNonExactExtraPct = 2;
+    [SettingsDoc("Extra undercut % added on top of the normal adjustments to simulate a worst-case scenario (e.g. if daily volume drops below 0.4). Set to 0 to disable the worst-case line.", "lbWorstCasePct")]
+    public byte LowballWorstCaseExtraPct = 5;
+    [SettingsDoc("Hide the per-item lowball calculation breakdown in the hover tooltip", "lbHideBreakdown")]
+    public bool LowballHideBreakdown;
+    [SettingsDoc("Hide the worst-case total price from the lowball hover tooltip", "lbHideWorstCase")]
+    public bool LowballHideWorstCase;
+
     public HighlightInfo HighlightInfo { get; set; }
 }
 
